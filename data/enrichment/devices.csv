@@ -1,0 +1,97 @@
+device_id,device_type,location,department,ip_address
+MONITOR-RM401-01,Patient Monitor,Room 401,Cardiology,192.168.1.101
+MONITOR-RM402-02,Patient Monitor,Room 402,Cardiology,192.168.1.102
+PUMP-RM402-03,Infusion Pump,Room 402,Cardiology,192.168.1.103
+MONITOR-ICU1-01,Patient Monitor,ICU-1,ICU,192.168.2.101
+PUMP-ICU1-04,Infusion Pump,ICU-1,ICU,192.168.2.104
+WORKSTATION-NURSE-01,Workstation,Nurse Station 1,General Ward,192.168.1.75
+WORKSTATION-CARDIO-03,Workstation,Cardiology Dept,Cardiology,192.168.1.50
+MRI-MAIN-01,MRI Machine,Radiology Wing,Radiology,192.168.4.10
+CT-SCANNER-01,CT Scanner,Radiology Wing,Radiology,192.168.4.11
+ROUTER-FLOOR1,Router,Floor 1 MDF,IT Support,192.168.1.1
+SERVER-EHR-01,Server,Data Center,IT Support,192.168.0.10
+SERVER-EHR-02,Server,Data Center,IT Support,192.168.0.11
+FIREWALL-MAIN,Firewall,Data Center,IT Support,192.168.0.1
+MONITOR-RM403-01,Patient Monitor,Room 403,Neurology,192.168.1.104
+MONITOR-RM404-01,Patient Monitor,Room 404,General Ward,192.168.1.105
+MONITOR-RM405-01,Patient Monitor,Room 405,Oncology,192.168.1.106
+MONITOR-RM406-01,Patient Monitor,Room 406,Radiology,192.168.1.107
+MONITOR-RM407-01,Patient Monitor,Room 407,General Ward,192.168.1.108
+MONITOR-RM408-01,Patient Monitor,Room 408,Pulmonology,192.168.1.109
+MONITOR-RM409-01,Patient Monitor,Room 409,Pediatrics,192.168.1.110
+MONITOR-RM410-01,Patient Monitor,Room 410,Mental Health,192.168.1.111
+MONITOR-RM411-01,Patient Monitor,Room 411,General Ward,192.168.1.112
+MONITOR-RM412-01,Patient Monitor,Room 412,Cardiology,192.168.1.113
+MONITOR-RM413-01,Patient Monitor,Room 413,Infectious Disease,192.168.1.114
+MONITOR-RM414-01,Patient Monitor,Room 414,Orthopedics,192.168.1.115
+MONITOR-RM415-01,Patient Monitor,Room 415,Dermatology,192.168.1.116
+MONITOR-ICU2-01,Patient Monitor,ICU-2,ICU,192.168.2.102
+MONITOR-ICU3-01,Patient Monitor,ICU-3,ICU,192.168.2.103
+MONITOR-ICU4-01,Patient Monitor,ICU-4,ICU,192.168.2.105
+MONITOR-ICU5-01,Patient Monitor,ICU-5,ICU,192.168.2.106
+WORKSTATION-NURSE-02,Workstation,Nurse Station 2,ICU,192.168.2.75
+WORKSTATION-NEURO-01,Workstation,Neurology Dept,Neurology,192.168.2.10
+WORKSTATION-ONCO-01,Workstation,Oncology Dept,Oncology,192.168.3.10
+WORKSTATION-PHARMA-01,Workstation,Pharmacy,Pharmacy,192.168.3.15
+XRAY-01,X-Ray Machine,Radiology Wing,Radiology,192.168.4.12
+ULTRASOUND-01,Ultrasound Machine,Radiology Wing,Radiology,192.168.4.13
+ROUTER-FLOOR2,Router,Floor 2 MDF,IT Support,192.168.2.1
+ROUTER-FLOOR3,Router,Floor 3 MDF,IT Support,192.168.3.1
+SERVER-BACKUP-01,Server,Data Center,IT Support,192.168.0.20
+SERVER-WEB-01,Server,Data Center,IT Support,192.168.0.30
+MONITOR-PED1-01,Patient Monitor,PED-1,Pediatrics,192.168.5.101
+MONITOR-PED2-01,Patient Monitor,PED-2,Pediatrics,192.168.5.102
+MONITOR-PED3-01,Patient Monitor,PED-3,Pediatrics,192.168.5.103
+MONITOR-PED4-01,Patient Monitor,PED-4,Pediatrics,192.168.5.104
+MONITOR-ONC1-01,Patient Monitor,ONC-1,Oncology,192.168.6.101
+MONITOR-ONC2-01,Patient Monitor,ONC-2,Oncology,192.168.6.102
+MONITOR-ONC3-01,Patient Monitor,ONC-3,Oncology,192.168.6.103
+MONITOR-ONC4-01,Patient Monitor,ONC-4,Oncology,192.168.6.104
+MONITOR-ONC5-01,Patient Monitor,ONC-5,Oncology,192.168.6.105
+WORKSTATION-ADMIN-01,Workstation,Admin Office,Admin,192.168.7.10
+WORKSTATION-ADMIN-02,Workstation,Admin Office,Admin,192.168.7.11
+WORKSTATION-FINANCE-01,Workstation,Finance Office,Finance,192.168.7.20
+VENTILATOR-ICU1-01,Ventilator,ICU-1,ICU,192.168.2.110
+VENTILATOR-ICU2-01,Ventilator,ICU-2,ICU,192.168.2.111
+VENTILATOR-ICU3-01,Ventilator,ICU-3,ICU,192.168.2.112
+VENTILATOR-ICU4-01,Ventilator,ICU-4,ICU,192.168.2.113
+ECG-CART-01,ECG Cart,Cardiology,Cardiology,192.168.1.200
+ECG-CART-02,ECG Cart,Emergency,Emergency,192.168.8.200
+DEFIBRILLATOR-ER-01,Defibrillator,Emergency,Emergency,192.168.8.201
+DEFIBRILLATOR-ER-02,Defibrillator,Emergency,Emergency,192.168.8.202
+WORKSTATION-ER-01,Workstation,Emergency,Emergency,192.168.8.10
+WORKSTATION-ER-02,Workstation,Emergency,Emergency,192.168.8.11
+SWITCH-CORE-01,Network Switch,Data Center,IT Support,192.168.0.2
+SWITCH-CORE-02,Network Switch,Data Center,IT Support,192.168.0.3
+SWITCH-FLOOR1-01,Network Switch,Floor 1 MDF,IT Support,192.168.1.2
+SWITCH-FLOOR2-01,Network Switch,Floor 2 MDF,IT Support,192.168.2.2
+SWITCH-FLOOR3-01,Network Switch,Floor 3 MDF,IT Support,192.168.3.2
+PUMP-ICU2-01,Infusion Pump,ICU-2,ICU,192.168.2.120
+PUMP-ICU3-01,Infusion Pump,ICU-3,ICU,192.168.2.121
+PUMP-ICU4-01,Infusion Pump,ICU-4,ICU,192.168.2.122
+PUMP-ONC1-01,Infusion Pump,ONC-1,Oncology,192.168.6.120
+PUMP-ONC2-01,Infusion Pump,ONC-2,Oncology,192.168.6.121
+BLOOD-ANALYZER-01,Blood Analyzer,Pathology,Pathology,192.168.9.10
+BLOOD-ANALYZER-02,Blood Analyzer,Pathology,Pathology,192.168.9.11
+WORKSTATION-PATH-01,Workstation,Pathology,Pathology,192.168.9.5
+WORKSTATION-PATH-02,Workstation,Pathology,Pathology,192.168.9.6
+SERVER-PACS-01,Server,Data Center,Radiology,192.168.0.40
+MONITOR-RM501-01,Patient Monitor,Room 501,General Ward,192.168.1.117
+MONITOR-RM502-01,Patient Monitor,Room 502,Cardiology,192.168.1.118
+MONITOR-RM503-01,Patient Monitor,Room 503,Neurology,192.168.1.119
+MONITOR-RM504-01,Patient Monitor,Room 504,Oncology,192.168.1.120
+MONITOR-RM505-01,Patient Monitor,Room 505,Radiology,192.168.1.121
+MONITOR-RM506-01,Patient Monitor,Room 506,General Ward,192.168.1.122
+MONITOR-RM507-01,Patient Monitor,Room 507,Pulmonology,192.168.1.123
+MONITOR-RM508-01,Patient Monitor,Room 508,Pediatrics,192.168.1.124
+MONITOR-RM509-01,Patient Monitor,Room 509,Mental Health,192.168.1.125
+MONITOR-RM510-01,Patient Monitor,Room 510,General Ward,192.168.1.126
+MONITOR-RM511-01,Patient Monitor,Room 511,Cardiology,192.168.1.127
+MONITOR-RM512-01,Patient Monitor,Room 512,Infectious Disease,192.168.1.128
+MONITOR-RM513-01,Patient Monitor,Room 513,Orthopedics,192.168.1.129
+MONITOR-RM514-01,Patient Monitor,Room 514,Dermatology,192.168.1.130
+MONITOR-RM515-01,Patient Monitor,Room 515,Surgery,192.168.1.131
+WORKSTATION-SURGERY-01,Workstation,Surgery Dept,Surgery,192.168.10.5
+WORKSTATION-SURGERY-02,Workstation,Surgery Dept,Surgery,192.168.10.6
+ROUTER-FLOOR4,Router,Floor 4 MDF,IT Support,192.168.4.1
+ROUTER-FLOOR5,Router,Floor 5 MDF,IT Support,192.168.5.1

@@ -1,0 +1,93 @@
+user_id,full_name,role,department,access_level,is_on_shift
+s_gupta,Dr. Sanjay Gupta,Cardiologist,Cardiology,3,TRUE
+n_patel,Nurse Priya Patel,Nurse,General Ward,2,TRUE
+r_verma,Dr. Rita Verma,Neurologist,Neurology,3,TRUE
+a_admin,Ankit Singh,IT Admin,IT Support,4,TRUE
+p_singh,Prakash Singh,Pharmacist,Pharmacy,2,TRUE
+m_ali,Mohammed Ali,Surgeon,Surgery,3,FALSE
+k_sharma,Kavita Sharma,Nurse,ICU,2,TRUE
+v_rao,Dr. Vikram Rao,Oncologist,Oncology,3,FALSE
+s_reddy,Sunita Reddy,Receptionist,Admin,1,TRUE
+d_kumar,Dinesh Kumar,Janitor,Facilities,1,TRUE
+j_doe,Dr. John Doe,Radiologist,Radiology,3,TRUE
+l_chen,Li Chen,Lab Technician,Pathology,2,FALSE
+t_nguyen,Tran Nguyen,Nurse,Pediatrics,2,TRUE
+m_khan,Dr. Fatima Khan,General Physician,General Ward,3,TRUE
+a_joshi,Amit Joshi,IT Support,IT Support,4,FALSE
+c_davis,Dr. Carol Davis,Anesthesiologist,Surgery,3,TRUE
+b_williams,Bob Williams,Security,Facilities,1,TRUE
+s_jones,Sarah Jones,Nurse,Emergency,2,TRUE
+r_clark,Dr. Robert Clark,Pediatrician,Pediatrics,3,FALSE
+e_fernandez,Elena Fernandez,HR Manager,Admin,2,TRUE
+g_kim,Grace Kim,Nurse,Oncology,2,TRUE
+h_lee,Henry Lee,Accountant,Finance,2,FALSE
+i_martin,Isabella Martin,Dietitian,Nutrition,2,TRUE
+j_thomas,Dr. James Thomas,Psychiatrist,Mental Health,3,TRUE
+k_lopez,Karen Lopez,Physical Therapist,Rehabilitation,2,FALSE
+l_garcia,Luis Garcia,IT Support,IT Support,4,TRUE
+m_rodriguez,Maria Rodriguez,Nurse,Surgery,2,TRUE
+n_perez,Dr. Nancy Perez,Dermatologist,Dermatology,3,FALSE
+o_turner,Oscar Turner,Security,Facilities,1,TRUE
+p_walker,Patricia Walker,Social Worker,Admin,2,TRUE
+q_hall,Quincy Hall,Paramedic,Emergency,2,FALSE
+r_allen,Dr. Richard Allen,Endocrinologist,Endocrinology,3,TRUE
+s_young,Susan Young,Nurse,General Ward,2,TRUE
+t_hernandez,Dr. Thomas Hernandez,Gastroenterologist,Gastroenterology,3,FALSE
+u_king,Ursula King,Janitor,Facilities,1,TRUE
+v_wright,Dr. Victor Wright,Urologist,Urology,3,TRUE
+w_scott,Wendy Scott,Nurse,Neurology,2,FALSE
+x_green,Xavier Green,Lab Technician,Pathology,2,TRUE
+y_adams,Yvonne Adams,Receptionist,Admin,1,TRUE
+z_baker,Dr. Zachary Baker,Orthopedic Surgeon,Orthopedics,3,FALSE
+a_carter,Alice Carter,Nurse,Cardiology,2,TRUE
+b_evans,Dr. Brian Evans,Pulmonologist,Pulmonology,3,TRUE
+c_mitchell,Catherine Mitchell,Pharmacist,Pharmacy,2,FALSE
+d_roberts,David Roberts,IT Admin,IT Support,4,TRUE
+e_turner,Emily Turner,Nurse,ICU,2,TRUE
+f_phillips,Frank Phillips,Security,Facilities,1,FALSE
+g_campbell,Gloria Campbell,Receptionist,Admin,1,TRUE
+h_parker,Dr. Helen Parker,Rheumatologist,Rheumatology,3,TRUE
+i_edwards,Ian Edwards,Janitor,Facilities,1,FALSE
+j_collins,Dr. Jane Collins,Immunologist,Immunology,3,TRUE
+k_stewart,Kevin Stewart,IT Support,IT Support,4,TRUE
+l_sanchez,Laura Sanchez,Nurse,Emergency,2,FALSE
+m_morris,Dr. Michael Morris,Nephrologist,Nephrology,3,TRUE
+n_rogers,Nicole Rogers,Lab Technician,Pathology,2,TRUE
+o_peterson,Dr. Olivia Peterson,Ophthalmologist,Ophthalmology,3,FALSE
+p_cooper,Paul Cooper,Security,Facilities,1,TRUE
+q_richardson,Quinn Richardson,Nurse,Surgery,2,TRUE
+r_cox,Dr. Rachel Cox,Allergist,Allergy & Immunology,3,FALSE
+s_howard,Samuel Howard,Accountant,Finance,2,TRUE
+t_ward,Tina Ward,Receptionist,Admin,1,TRUE
+u_brooks,Dr. Ulysses Brooks,Plastic Surgeon,Surgery,3,FALSE
+v_sanders,Victoria Sanders,Nurse,Pediatrics,2,TRUE
+w_price,Dr. Walter Price,ENT Specialist,Otolaryngology,3,TRUE
+x_bennett,Xena Bennett,Dietitian,Nutrition,2,FALSE
+y_wood,Yara Wood,Physical Therapist,Rehabilitation,2,TRUE
+z_barnes,Zane Barnes,IT Support,IT Support,4,TRUE
+a_ross,Dr. Angela Ross,Geriatrician,Geriatrics,3,FALSE
+b_henderson,Bruce Henderson,Security,Facilities,1,TRUE
+c_coleman,Chloe Coleman,Nurse,Oncology,2,TRUE
+d_jenkins,Dr. Daniel Jenkins,Hematologist,Hematology,3,FALSE
+e_perry,Evelyn Perry,Social Worker,Admin,2,TRUE
+f_powell,Felix Powell,Janitor,Facilities,1,TRUE
+g_long,Dr. Georgia Long,Infectious Disease Specialist,Infectious Disease,3,FALSE
+h_patterson,Harry Patterson,IT Admin,IT Support,4,TRUE
+i_hughes,Ivy Hughes,Nurse,General Ward,2,TRUE
+j_flores,Dr. Jack Flores,Toxicologist,Toxicology,3,FALSE
+k_washington,Kim Washington,Receptionist,Admin,1,TRUE
+l_butler,Dr. Leo Butler,Sports Medicine Physician,Orthopedics,3,TRUE
+m_simmons,Mona Simmons,Nurse,Cardiology,2,FALSE
+n_foster,Dr. Neil Foster,Sleep Medicine Specialist,Neurology,3,TRUE
+o_gonzales,Oscar Gonzales,IT Support,IT Support,4,TRUE
+p_bryant,Paige Bryant,Lab Technician,Pathology,2,FALSE
+q_alexander,Quentin Alexander,Security,Facilities,1,TRUE
+r_russell,Dr. Rebecca Russell,Pain Management Specialist,Anesthesiology,3,TRUE
+s_griffin,Stella Griffin,Nurse,ICU,2,FALSE
+t_diaz,Dr. Theodore Diaz,Emergency Medicine Physician,Emergency,3,TRUE
+u_hayes,Uma Hayes,Pharmacist,Pharmacy,2,TRUE
+v_myers,Vincent Myers,Janitor,Facilities,1,FALSE
+w_ford,Willa Ford,Receptionist,Admin,1,TRUE
+x_hamilton,Dr. Xavier Hamilton,Vascular Surgeon,Surgery,3,TRUE
+y_graham,Yasmine Graham,Nurse,Emergency,2,FALSE
+z_wallace,Zoe Wallace,Accountant,Finance,2,TRUE

@@ -1,0 +1,101 @@
+patient_id,full_name,current_room,assigned_doctor_id
+PAT-101,Anjali Sharma,Room 401,s_gupta
+PAT-102,Rohan Mehra,Room 402,s_gupta
+PAT-103,Priya Krishnan,Room 403,r_verma
+PAT-104,Amit Desai,Room 404,m_khan
+PAT-105,Sunita Rao,Room 405,v_rao
+PAT-106,Rajesh Kumar,Room 406,j_doe
+PAT-107,Meena Iyer,Room 407,m_khan
+PAT-108,Vikram Singh,Room 408,b_evans
+PAT-109,Aisha Begum,Room 409,r_clark
+PAT-110,Suresh Patel,Room 410,j_thomas
+PAT-111,Fatima Ansari,Room 411,m_khan
+PAT-112,Deepak Verma,Room 412,s_gupta
+PAT-113,Geeta Chowdhury,Room 413,g_long
+PAT-114,Arjun Reddy,Room 414,z_baker
+PAT-115,Nandini Das,Room 415,n_perez
+PAT-116,Imran Khan,ICU-1,m_ali
+PAT-117,Lakshmi Nair,ICU-2,c_davis
+PAT-118,Siddharth Menon,ICU-3,d_jenkins
+PAT-119,Pooja Bhatt,ICU-4,h_parker
+PAT-120,Anand Gopal,ICU-5,l_butler
+PAT-121,Zara Hussain,Room 501,m_khan
+PAT-122,Karan Malhotra,Room 502,s_gupta
+PAT-123,Divya Prasad,Room 503,r_verma
+PAT-124,Harish Shetty,Room 504,v_rao
+PAT-125,Rina D'Souza,Room 505,j_doe
+PAT-126,Balaji Venkat,Room 506,m_khan
+PAT-127,Ishita Joshi,Room 507,b_evans
+PAT-128,Manish Gupta,Room 508,r_clark
+PAT-129,Sneha Agarwal,Room 509,j_thomas
+PAT-130,Alok Nath,Room 510,m_khan
+PAT-131,Chandni Singh,Room 511,s_gupta
+PAT-132,Eshaan Trivedi,Room 512,g_long
+PAT-133,Feroz Shah,Room 513,z_baker
+PAT-134,Gauri Patil,Room 514,n_perez
+PAT-135,Himesh Roy,Room 515,m_ali
+PAT-136,Indu Sharma,PED-1,r_clark
+PAT-137,Jatin Kumar,PED-2,r_clark
+PAT-138,Kiran Bedi,PED-3,r_clark
+PAT-139,Lalit Modi,PED-4,r_clark
+PAT-140,Mohanlal Pillai,ONC-1,v_rao
+PAT-141,Neelam Kothari,ONC-2,v_rao
+PAT-142,Om Prakash,ONC-3,v_rao
+PAT-143,Parvati Balan,ONC-4,v_rao
+PAT-144,Qasim Ali,ONC-5,v_rao
+PAT-145,Rani Mukerji,Room 601,m_khan
+PAT-146,Salim Merchant,Room 602,s_gupta
+PAT-147,Tanvi Shah,Room 603,r_verma
+PAT-148,Uday Chopra,Room 604,m_khan
+PAT-149,Varun Dhawan,Room 605,v_rao
+PAT-150,Wahida Rehman,Room 606,j_doe
+PAT-151,Xavier Pinto,Room 607,m_khan
+PAT-152,Yusuf Pathan,Room 608,b_evans
+PAT-153,Zeenat Aman,Room 609,r_clark
+PAT-154,Abhishek Bachchan,Room 610,j_thomas
+PAT-155,Bipasha Basu,Room 611,m_khan
+PAT-156,Chirag Paswan,Room 612,s_gupta
+PAT-157,Dia Mirza,Room 613,g_long
+PAT-158,Emraan Hashmi,Room 614,z_baker
+PAT-159,Farhan Akhtar,Room 615,n_perez
+PAT-160,Girish Karnad,ICU-6,m_ali
+PAT-161,Harman Baweja,ICU-7,c_davis
+PAT-162,Irrfan Khan,ICU-8,d_jenkins
+PAT-163,Juhi Chawla,ICU-9,h_parker
+PAT-164,Kapil Dev,ICU-10,l_butler
+PAT-165,Lara Dutta,Room 701,m_khan
+PAT-166,Manoj Bajpayee,Room 702,s_gupta
+PAT-167,Nargis Fakhri,Room 703,r_verma
+PAT-168,Om Puri,Room 704,v_rao
+PAT-169,Priyanka Chopra,Room 705,j_doe
+PAT-170,Rahul Bose,Room 706,m_khan
+PAT-171,Shabana Azmi,Room 707,b_evans
+PAT-172,Tabu,Room 708,r_clark
+PAT-173,Urmila Matondkar,Room 709,j_thomas
+PAT-174,Vivek Oberoi,Room 710,m_khan
+PAT-175,Waheeda Rehman,Room 711,s_gupta
+PAT-176,Yami Gautam,Room 712,g_long
+PAT-177,Zayed Khan,Room 713,z_baker
+PAT-178,Amrita Rao,Room 714,n_perez
+PAT-179,Bobby Deol,Room 715,m_ali
+PAT-180,Celina Jaitly,PED-5,r_clark
+PAT-181,Dino Morea,PED-6,r_clark
+PAT-182,Esha Deol,PED-7,r_clark
+PAT-183,Fardeen Khan,PED-8,r_clark
+PAT-184,Gul Panag,ONC-6,v_rao
+PAT-185,Harshvardhan Kapoor,ONC-7,v_rao
+PAT-186,Isha Koppikar,ONC-8,v_rao
+PAT-187,Jimmy Sheirgill,ONC-9,v_rao
+PAT-188,Kunal Kapoor,ONC-10,v_rao
+PAT-189,Luv Sinha,Room 801,m_khan
+PAT-190,Mahima Chaudhry,Room 802,s_gupta
+PAT-191,Namrata Shirodkar,Room 803,r_verma
+PAT-192,Paresh Rawal,Room 804,m_khan
+PAT-193,Queenie Singh,Room 805,v_rao
+PAT-194,Raveena Tandon,Room 806,j_doe
+PAT-195,Sanjay Dutt,Room 807,m_khan
+PAT-196,Tusshar Kapoor,Room 808,b_evans
+PAT-197,Upen Patel,Room 809,r_clark
+PAT-198,Vatsal Sheth,Room 810,j_thomas
+PAT-199,Zulfi Syed,Room 811,m_khan
+PAT-200,Aftab Shivdasani,Room 812,s_gupta
