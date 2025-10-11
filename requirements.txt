@@ -1,0 +1,8 @@
+#MQTT client library for Python
+paho-mqtt
+
+#PostgreSQL database adapter for Python
+psycopg2-binary
+
+#Powerful data analysis and manipulation library
+pandas
