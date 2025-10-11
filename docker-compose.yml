@@ -1,0 +1,46 @@
+version: "3.8"
+
+# Defines the services (containers) that make up your application
+services:
+  # Mosquitto MQTT Broker Service
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883" # Exposes the default MQTT port to your local machine
+      - "9001:9001" # Exposes the WebSocket port (optional)
+    volumes:
+      # Mounts your custom configuration file into the container
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:14
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      # Sets the database credentials. These MUST match your config.ini
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: hospital_db
+    ports:
+      # Exposes the default PostgreSQL port to your local machine
+      - "5432:5432"
+    volumes:
+      # Persists database data even if the container is removed
+      - postgres_data:/var/lib/postgresql/data
+
+# Defines a named volume for persistent database storage
+volumes:
+  postgres_data:
+#Summary:
+# This Docker Compose file (version 3.8) defines two key services —
+
+# Mosquitto (MQTT broker): Handles lightweight IoT message communication.
+
+# PostgreSQL (database): Stores structured hospital or IoT data persistently.
+
+# Both run in separate containers but share the same Docker network, allowing them to communicate using service names (mosquitto, postgres).
+# Each container has exposed ports so you can access them from your host (localhost:1883, localhost:5432), and a volume ensures PostgreSQL data persists across restarts.
+# The restart policies guarantee both services auto-recover if stopped or the system reboots.
