@@ -1,0 +1,22 @@
+# Python generated files
+__pycache__/        # Python cache directory for compiled bytecode
+*.pyc               # Compiled Python files
+*.pyo               # Optimized compiled Python files
+*.pyd               # Windows-specific compiled Python extension files
+
+# Virtual environment directories
+venv/               # Standard virtual environment directory
+env/                # Alternative virtual environment directory
+.venv/              # Common hidden virtual environment directory
+
+# IDE and editor directories
+.vscode/            # VS Code workspace settings and extensions
+.idea/              # JetBrains IDE project files (PyCharm, IntelliJ, etc.)
+
+# OS-specific files
+.DS_Store           # macOS Finder metadata files
+Thumbs.db           # Windows thumbnail cache files
+
+#This .gitignore file excludes Python bytecode, virtual environments, IDE/editor configs, and OS-specific files from Git, keeping the 
+#repository clean and focused on source code.
+#It ensures that reproducible files and personal settings are not accidentally committed, reducing conflicts and unnecessary clutter.
