@@ -4,6 +4,7 @@ import json
 import sys
 from ..utils.db_connector import DatabaseConnector
 from . import enricher
+from ..digital_twin.manager import HospitalDT
 
 # --- MQTT Client Setup ---
 
@@ -25,40 +26,63 @@ def on_message(client, userdata, msg):
     payload = msg.payload.decode('utf-8')
     print(f"\n📩 Message received on topic '{msg.topic}'")
     
+    # Get components from userdata
     db_connector = userdata['db_connector']
+    hospital_dt_manager = userdata['hospital_dt_manager'] 
+    
     enriched_event = None
 
-    # Dispatch to the correct processing function based on the topic
+    # --- LAYER 2: ENRICHMENT ---
     if msg.topic == userdata['device_topic']:
         enriched_event = enricher.process_device_message(payload, db_connector)
     elif msg.topic == userdata['network_topic']:
         enriched_event = enricher.process_network_message(payload, db_connector)
     
+    # --- LAYER 3: INFORMATION ---
     if enriched_event:
-        # Print the final, enriched JSON to the console
-        print("--- ✨ Enriched Event JSON ✨ ---")
-        print(json.dumps(enriched_event, indent=2))
-        print("---------------------------------")
+        # 1. Historical Record (Store in DB)
+        storage_success = db_connector.store_event(enriched_event)
+        
+        # 2. Living Profile (Update in-memory DTs)
+        updated_states = hospital_dt_manager.update_from_event(enriched_event) # This is now a list
+
+        # 3. Verification
+        print(f"   -> L3 (Historical): Event storage success: {storage_success}")
+        if updated_states:
+            print("   -> L3 (Living Profile): DT states updated:")
+            # --- MODIFIED BLOCK ---
+            # Loop through the list of updated DTs and print each one
+            for dt_name, state in updated_states:
+                print(f"      --- Updated {dt_name} State ---")
+                print(json.dumps(state, indent=2))
+                print("      ----------------------------")
+            # --- END MODIFIED BLOCK ---
+        else:
+            print("   -> L3 (Living Profile): No DTs updated for this event.")
+            
     else:
-        print("   -> ⚠️ Event could not be enriched. Skipping.")
+        print("   -> Stop ⚠️ Event could not be enriched (Skipped by L2).")
 
 
 def main():
-    """Main function to start the Layer 2 processing service."""
-    print("--- Starting Layer 2: Data Enrichment Service ---")
+    """Main function to start the Layer 2/3 processing service."""
+    # Updated print message
+    print("--- Starting Layer 2/3: Data Processing Service ---") 
     
     # --- Configuration ---
     config = configparser.ConfigParser()
     config.read('config.ini')
     mqtt_config = config['MQTT']
 
-    # --- Database Connection ---
+    # --- Component Initialization ---
     db_connector = DatabaseConnector()
+    hospital_dt_manager = HospitalDT() # <--- ADD THIS LINE: Initialize L3 Manager
 
     # --- MQTT Client Initialization ---
-    # Store config and db_connector in userdata to make them accessible in callbacks
+    # Store all components in userdata to make them accessible in callbacks
     user_data = {
         "db_connector": db_connector,
+        "hospital_dt_manager": hospital_dt_manager, # <--- ADD THIS LINE: Pass L3 Manager
         "device_topic": mqtt_config['DEVICE_TOPIC'],
         "network_topic": mqtt_config['NETWORK_TOPIC']
     }
@@ -70,8 +94,6 @@ def main():
         print("🔌 Attempting to connect to MQTT broker...")
         client.connect(mqtt_config['BROKER_ADDRESS'], int(mqtt_config['PORT']), 60)
         
-        # loop_forever() is a blocking call that processes network traffic
-        # and dispatches callbacks automatically.
         print("👂 Listening for messages... Press Ctrl+C to stop.")
         client.loop_forever()
 
@@ -86,7 +108,7 @@ def main():
         print("   Disconnecting MQTT client and closing database connection...")
         client.disconnect()
         db_connector.close()
-        print("--- Enrichment Service Shut Down ---")
+        print("--- Layer 2/3 Service Shut Down ---") 
 
 
 if __name__ == '__main__':

@@ -26,10 +26,10 @@ def get_db_connection():
         sys.exit(1) # Exit the script if DB connection fails
 
 def create_tables(conn):
-    """Creates the staff, patients, and devices tables in the database."""
+    """Creates the staff, patients, devices, and event_logs tables."""
     commands = (
         """
-        DROP TABLE IF EXISTS staff, patients, devices CASCADE;
+        DROP TABLE IF EXISTS staff, patients, devices, event_logs CASCADE;
         """,
         """
         CREATE TABLE staff (
@@ -57,6 +57,15 @@ def create_tables(conn):
             department VARCHAR(50),
             ip_address VARCHAR(15)
         );
+        """,
+        # --- ADD THIS NEW TABLE ---
+        """
+        CREATE TABLE event_logs (
+            event_id SERIAL PRIMARY KEY,
+            event_type VARCHAR(50),
+            timestamp TIMESTAMPTZ,
+            event_data JSONB
+        );
         """
     )
     
@@ -65,7 +74,7 @@ def create_tables(conn):
             for command in commands:
                 cur.execute(command)
         conn.commit()
-        print("✅ Tables created successfully (staff, patients, devices).")
+        print("✅ Tables created successfully (staff, patients, devices, event_logs).") # Updated message
     except (psycopg2.DatabaseError) as e:
         print(f"❌ Error creating tables: {e}")
         conn.rollback()

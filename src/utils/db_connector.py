@@ -2,6 +2,7 @@ import psycopg2
 import psycopg2.extras
 import configparser
 import sys
+import json
 
 class DatabaseConnector:
     """A dedicated class to handle all PostgreSQL database interactions."""
@@ -46,6 +47,37 @@ class DatabaseConnector:
             # In a real app, you might want to try reconnecting here
             self.conn.rollback() 
             return None
+
+    def store_event(self, event_data):
+        """Stores an enriched event in the event_logs table."""
+        if not self.conn:
+            print("⚠️ Cannot store event, no database connection.")
+            return False
+            
+        try:
+            # Extract data for indexed columns
+            event_type = event_data.get('eventType')
+            timestamp = event_data.get('timestamp')
+            
+            # Convert event_data dict to a JSON string for insertion
+            event_json = json.dumps(event_data)
+            
+            query = """
+                INSERT INTO event_logs (event_type, timestamp, event_data)
+                VALUES (%s, %s, %s)
+            """
+            with self.conn.cursor() as cur:
+                cur.execute(query, (event_type, timestamp, event_json))
+            self.conn.commit()
+            return True
+            
+        except (psycopg2.DatabaseError) as e:
+            print(f"❌ Database insert failed for event: {e}")
+            self.conn.rollback() 
+            return False
+        except Exception as e:
+            print(f"❌ An error occurred during event storage: {e}")
+            return False
 
     def close(self):
         """Closes the database connection."""
