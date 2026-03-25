@@ -7,7 +7,6 @@ import sys
 def get_db_connection():
     """Establishes and returns a connection to the PostgreSQL database."""
     config = configparser.ConfigParser()
-    # Assuming the script is run from the root directory
     config.read('config.ini')
     
     try:
@@ -21,9 +20,9 @@ def get_db_connection():
         return conn
     except psycopg2.OperationalError as e:
         print(f"❌ Critical Error: Could not connect to the database.")
-        print(f"   Please ensure PostgreSQL is running and accessible at the configured address.")
+        print(f"   Please ensure PostgreSQL is running and accessible.")
         print(f"   Error details: {e}")
-        sys.exit(1) # Exit the script if DB connection fails
+        sys.exit(1)
 
 def create_tables(conn):
     """Creates the staff, patients, devices, and event_logs tables."""
@@ -46,7 +45,8 @@ def create_tables(conn):
             patient_id VARCHAR(50) PRIMARY KEY,
             full_name VARCHAR(100),
             current_room VARCHAR(20),
-            assigned_doctor_id VARCHAR(50) REFERENCES staff(user_id)
+            assigned_doctor_id VARCHAR(50) REFERENCES staff(user_id),
+            status VARCHAR(20)  
         );
         """,
         """
@@ -58,7 +58,6 @@ def create_tables(conn):
             ip_address VARCHAR(15)
         );
         """,
-        # --- ADD THIS NEW TABLE ---
         """
         CREATE TABLE event_logs (
             event_id SERIAL PRIMARY KEY,
@@ -74,7 +73,7 @@ def create_tables(conn):
             for command in commands:
                 cur.execute(command)
         conn.commit()
-        print("✅ Tables created successfully (staff, patients, devices, event_logs).") # Updated message
+        print("✅ Tables created successfully (staff, patients, devices, event_logs).")
     except (psycopg2.DatabaseError) as e:
         print(f"❌ Error creating tables: {e}")
         conn.rollback()
@@ -84,16 +83,13 @@ def populate_table(conn, table_name, file_path):
     """Populates a table from a given CSV file."""
     try:
         df = pd.read_csv(file_path)
-        # Prepare the data for fast insertion
         buffer = ','.join(df.columns)
-        # Create an in-memory string buffer for the CSV data
         from io import StringIO
         sio = StringIO()
         df.to_csv(sio, index=False, header=False, sep='\t')
         sio.seek(0)
 
         with conn.cursor() as cur:
-            # Use COPY FROM for highly efficient bulk insertion
             cur.copy_expert(f"COPY {table_name} ({buffer}) FROM STDIN WITH (FORMAT CSV, DELIMITER E'\\t')", sio)
         conn.commit()
         print(f"   -> Successfully populated '{table_name}' with {len(df)} records.")

@@ -2,33 +2,44 @@ import paho.mqtt.client as mqtt
 import configparser
 import json
 import sys
-from ..utils.db_connector import DatabaseConnector
-from . import enricher
-from ..digital_twin.manager import HospitalDT
+import os
 
-# --- MQTT Client Setup ---
+# --- Adjust path to import from root ---
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(PROJECT_ROOT)
+# --- End Path Adjust ---
+
+from src.utils.db_connector import DatabaseConnector
+from src.processor import enricher
+from src.digital_twin.manager import HospitalDT
+
+# --- Import Layer 4 Components ---
+from src.pre_detection.detector import AnomalyDetector
+from src.pre_detection.contextualizer import ConsistencyChecker
+from src.pre_detection.packager import PackageCreator
 
 def on_connect(client, userdata, flags, reason_code, properties):
     """Callback function for when the client connects to the MQTT broker."""
     if reason_code == 0:
         print("✅ Successfully connected to MQTT Broker!")
-        # Subscribe to both topics upon successful connection
         client.subscribe(userdata['device_topic'])
         client.subscribe(userdata['network_topic'])
         print(f"   -> Subscribed to topic: {userdata['device_topic']}")
         print(f"   -> Subscribed to topic: {userdata['network_topic']}")
     else:
         print(f"❌ Failed to connect to MQTT, return code {reason_code}\n")
-        sys.exit(1) # Exit if connection fails
+        sys.exit(1)
 
 def on_message(client, userdata, msg):
     """Callback function for when a message is received from the broker."""
     payload = msg.payload.decode('utf-8')
     print(f"\n📩 Message received on topic '{msg.topic}'")
     
-    # Get components from userdata
     db_connector = userdata['db_connector']
-    hospital_dt_manager = userdata['hospital_dt_manager'] 
+    hospital_dt_manager = userdata['hospital_dt_manager']
+    detector = userdata['detector']
+    contextualizer = userdata['contextualizer']
+    packager = userdata['packager']
     
     enriched_event = None
 
@@ -38,54 +49,86 @@ def on_message(client, userdata, msg):
     elif msg.topic == userdata['network_topic']:
         enriched_event = enricher.process_network_message(payload, db_connector)
     
-    # --- LAYER 3: INFORMATION ---
-    if enriched_event:
-        # 1. Historical Record (Store in DB)
-        storage_success = db_connector.store_event(enriched_event)
-        
-        # 2. Living Profile (Update in-memory DTs)
-        updated_states = hospital_dt_manager.update_from_event(enriched_event) # This is now a list
-
-        # 3. Verification
-        print(f"   -> L3 (Historical): Event storage success: {storage_success}")
-        if updated_states:
-            print("   -> L3 (Living Profile): DT states updated:")
-            # --- MODIFIED BLOCK ---
-            # Loop through the list of updated DTs and print each one
-            for dt_name, state in updated_states:
-                print(f"      --- Updated {dt_name} State ---")
-                print(json.dumps(state, indent=2))
-                print("      ----------------------------")
-            # --- END MODIFIED BLOCK ---
-        else:
-            print("   -> L3 (Living Profile): No DTs updated for this event.")
-            
-    else:
+    if not enriched_event:
         print("   -> Stop ⚠️ Event could not be enriched (Skipped by L2).")
+        return
 
+    # --- LAYER 3: INFORMATION (Digital Twin Update) ---
+    updated_states = hospital_dt_manager.update_from_event(enriched_event)
+    
+    storage_success = db_connector.store_event(enriched_event)
+    print(f"   -> L3 (Historical): Event storage success: {storage_success}")
+
+    if updated_states:
+        print(f"   -> L3 (Living Profile): {len(updated_states)} DT(s) updated.")
+    else:
+        print("   -> L3 (Living Profile): No DTs updated for this event.")
+            
+    # ---
+    # --- LAYER 4 PIPELINE ---
+    # ---
+    
+    # Step 1: Anomaly Detection
+    triggered_anomalies = detector.check_event(enriched_event, hospital_dt_manager)
+    
+    if not triggered_anomalies:
+        print("   -> L4 (Detect): No anomalies detected. Event is benign. ✅")
+        return
+        
+    print(f"   -> L4 (Detect): ⚠️ {len(triggered_anomalies)} anomalies flagged: {triggered_anomalies}")
+    
+    # Step 2: Consistency Check
+    suspicious_anomalies = contextualizer.filter_anomalies(
+        triggered_anomalies, enriched_event, hospital_dt_manager
+    )
+    
+    if not suspicious_anomalies:
+        print("   -> L4 (Context): Anomalies explained as benign. ✅")
+        return
+
+    print(f"   -> L4 (Context): 🚨 {len(suspicious_anomalies)} suspicious anomalies confirmed: {suspicious_anomalies}")
+
+    # Step 3: Package Creation
+    case_file_json = packager.build_case_file(
+        suspicious_anomalies, enriched_event, hospital_dt_manager
+    )
+    
+    print("   -> L4 (Package): 🚀 Case file built. Escalating to Layer 5 (LLM)...")
+    
+    # --- This is where you would send to Layer 5 ---
+    print("\n" + "="*60)
+    print(f"--- 🚨 SUSPICIOUS EVENT CASE FILE 🚨 ---")
+    print(case_file_json)
+    print("="*60 + "\n")
+    
 
 def main():
-    """Main function to start the Layer 2/3 processing service."""
-    # Updated print message
-    print("--- Starting Layer 2/3: Data Processing Service ---") 
+    """Main function to start the L2, L3, and L4 processing service."""
+    print("--- Starting Layer 2/3/4: Data Processing Service ---") 
     
-    # --- Configuration ---
     config = configparser.ConfigParser()
     config.read('config.ini')
     mqtt_config = config['MQTT']
 
-    # --- Component Initialization ---
     db_connector = DatabaseConnector()
-    hospital_dt_manager = HospitalDT() # <--- ADD THIS LINE: Initialize L3 Manager
+    hospital_dt_manager = HospitalDT()
+    detector = AnomalyDetector()
+    contextualizer = ConsistencyChecker()
+    packager = PackageCreator()
 
-    # --- MQTT Client Initialization ---
-    # Store all components in userdata to make them accessible in callbacks
     user_data = {
         "db_connector": db_connector,
-        "hospital_dt_manager": hospital_dt_manager, # <--- ADD THIS LINE: Pass L3 Manager
+        "hospital_dt_manager": hospital_dt_manager,
+        "detector": detector,
+        "contextualizer": contextualizer,
+        "packager": packager,
         "device_topic": mqtt_config['DEVICE_TOPIC'],
-        "network_topic": mqtt_config['NETWORK_TOPIC']
+        "network_topic": mqtt_config['NETWORK_TOPIC'] 
     }
+    
+    # Correcting the userdata key to match config.ini
+    user_data["network_topic"] = mqtt_config['NETWORK_TOPIC']
+
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, userdata=user_data)
     client.on_connect = on_connect
     client.on_message = on_message
@@ -93,13 +136,10 @@ def main():
     try:
         print("🔌 Attempting to connect to MQTT broker...")
         client.connect(mqtt_config['BROKER_ADDRESS'], int(mqtt_config['PORT']), 60)
-        
         print("👂 Listening for messages... Press Ctrl+C to stop.")
         client.loop_forever()
-
     except ConnectionRefusedError:
         print(f"❌ MQTT Connection Error: Connection was refused.")
-        print(f"   Please ensure the Mosquitto container is running ('docker-compose up -d').")
     except KeyboardInterrupt:
         print("\n\n🛑 Service stopped by user.")
     except Exception as e:
@@ -108,23 +148,7 @@ def main():
         print("   Disconnecting MQTT client and closing database connection...")
         client.disconnect()
         db_connector.close()
-        print("--- Layer 2/3 Service Shut Down ---") 
-
+        print("--- Layer 2/3/4 Service Shut Down ---") 
 
 if __name__ == '__main__':
-    # Add the project root to the Python path to allow for package-based imports
-    # This makes 'from ..utils' and 'from .' work correctly
-    import os
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     main()
-
-
-
-# This script implements a Layer-2 Data Enrichment service: it connects to an MQTT broker, listens to two topics (device logs and network/auth logs), and enriches 
-# incoming messages by calling functions in the enricher module that query a DatabaseConnector.
-
-# Uses Paho MQTT callbacks (on_connect, on_message) to subscribe and process messages asynchronously; enriched events are printed as pretty JSON.
-
-# Reads configuration from config.ini, opens a DB connection, and performs graceful shutdown / cleanup in a finally block.
-
-# Includes a small sys.path hack at the module entrypoint so the package-relative imports (..utils.db_connector) work when the file is executed as __main__.

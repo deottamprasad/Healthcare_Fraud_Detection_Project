@@ -1,4 +1,18 @@
 timestamp,log_source,user_id,source_ip,action,target_resource_id
+2025-11-13T01:50:00Z,admin_workstation,a_admin,10.0.1.5,login_success,ehr_server
+2025-11-13T01:50:05Z,billing_workstation,b_dutta,10.0.5.2,file_access,PAT-106
+2025-11-13T01:50:10Z,workstation-cardio-03,f_rani,192.168.1.50,login_success,ehr_server
+2025-11-13T01:51:00Z,workstation-nurse-01,n_patel,192.168.1.75,DELETE_RECORD,PAT-101_vitals.pdf
+2025-11-13T01:51:05Z,admin_workstation,a_admin,10.0.1.5,VIEW_PATIENT_VITALS,PAT-101_vitals.pdf
+2025-11-13T01:51:10Z,Patient_Kiosk,s_gupta,192.168.7.50,login_success,ehr_server
+2025-11-13T01:52:00Z,workstation-nurse-01,n_patel,192.168.1.75,file_access,PAT-101_notes.txt
+2025-11-13T01:52:05Z,workstation-cardio-03,s_gupta,192.168.1.50,file_access,PAT-102_ecg.jpg
+2025-10-04T22:16:00Z,admin_workstation,a_admin,10.0.1.5,login_success,ehr_server
+2025-10-04T22:16:05Z,billing_workstation,b_dutta,10.0.5.2,file_access,PAT-103
+2025-10-04T22:16:10Z,NURSE_STATION_SHARED,n_patel,192.168.1.100,login_success,ehr_server
+2025-10-04T22:16:12Z,NURSE_STATION_SHARED,n_sharma,192.168.1.100,login_success,ehr_server
+2025-10-04T22:16:15Z,NURSE_STATION_SHARED,r_singh,192.168.1.100,login_success,ehr_server
+2025-10-04T22:16:18Z,NURSE_STATION_SHARED,s_khan,192.168.1.100,login_success,ehr_server
 2025-10-04T22:15:00Z,ehr_server,s_gupta,192.168.1.50,login_success,ehr_database
 2025-10-04T22:15:03Z,workstation-nurse-01,n_patel,192.168.1.75,file_access,PAT-101_vitals.pdf
 2025-10-04T22:15:07Z,workstation-cardio-03,s_gupta,192.168.1.50,file_access,PAT-101_mri_scan.dcm
@@ -45,7 +59,7 @@ timestamp,log_source,user_id,source_ip,action,target_resource_id
 2025-10-04T22:17:40Z,workstation-nurse-01,n_patel,192.168.1.75,file_access,PAT-125_vitals.pdf
 2025-10-04T22:17:44Z,ehr_server,r_verma,192.168.2.10,data_export,PAT-125_full_record.zip
 2025-10-04T22:17:48Z,workstation-cardio-03,s_gupta,192.168.1.50,file_access,PAT-133_vitals.pdf
-2DO-10-04T22:17:51Z,ehr_server,p_singh,192.168.3.15,permission_denied,financial_reports.xlsx
+2025-10-04T22:17:51Z,ehr_server,p_singh,192.168.3.15,permission_denied,financial_reports.xlsx
 2025-10-04T22:17:54Z,firewall,a_admin,192.168.0.1,config_change,firewall_ruleset
 2025-10-04T22:17:57Z,workstation-nurse-01,n_patel,192.168.1.75,file_access,PAT-101_notes.txt
 2025-10-04T22:18:01Z,ehr_server,r_verma,192.168.2.10,file_access,PAT-102_history.pdf
@@ -61,7 +75,7 @@ timestamp,log_source,user_id,source_ip,action,target_resource_id
 2025-10-04T22:18:39Z,ehr_server,p_singh,192.168.3.15,data_export,medication_inventory.csv
 2025-10-04T22:18:43Z,firewall,unknown,89.187.168.22,login_failure,ehr_server
 2025-10-04T22:18:47Z,workstation-cardio-03,r_verma,192.168.2.10,file_access,PAT-102_mri_scan.dcm
-2025-10-04T22:18:50Z,ehr_server,a_admin,192.168.0.1,file_access,security_policy.pdf
+2Gallery-10-04T22:18:50Z,ehr_server,a_admin,192.168.0.1,file_access,security_policy.pdf
 2025-10-04T22:18:53Z,workstation-nurse-01,n_patel,192.168.1.75,file_access,PAT-133_notes.txt
 2025-10-04T22:18:56Z,ehr_server,s_gupta,192.168.1.50,permission_denied,payroll_data.xlsx
 2025-10-04T22:19:00Z,firewall,r_verma,192.168.2.10,login_failure,firewall_admin_panel

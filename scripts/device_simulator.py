@@ -47,7 +47,7 @@ def publish_data(client, topic, file_path):
                 else:
                     print(f"   ⚠️ Failed to publish message: {mqtt.error_string(result.rc)}")
                 
-                time.sleep(2) # Simulate a 2-second interval between readings
+                time.sleep(3) # Simulate a 3-second interval between readings
                 
     except FileNotFoundError:
         print(f"❌ Error: The file '{file_path}' was not found.")

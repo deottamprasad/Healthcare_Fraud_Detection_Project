@@ -95,3 +95,4 @@ WORKSTATION-SURGERY-01,Workstation,Surgery Dept,Surgery,192.168.10.5
 WORKSTATION-SURGERY-02,Workstation,Surgery Dept,Surgery,192.168.10.6
 ROUTER-FLOOR4,Router,Floor 4 MDF,IT Support,192.168.4.1
 ROUTER-FLOOR5,Router,Floor 5 MDF,IT Support,192.168.5.1
+TEST-PUMP-01,Infusion Pump,BIOMED_LAB,Biomedical,10.0.10.1

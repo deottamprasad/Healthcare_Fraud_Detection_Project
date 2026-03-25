@@ -3,16 +3,8 @@ import json
 def process_device_message(payload, db_connector):
     """
     Parses, standardizes, and enriches a raw medical device log message.
-    
-    Args:
-        payload (str): The raw message from MQTT (e.g., "timestamp,device_id,...").
-        db_connector (DatabaseConnector): An instance of the database connector.
-        
-    Returns:
-        dict: A rich JSON object with contextual data, or None if processing fails.
     """
     try:
-        # 1. Parse the raw message
         parts = payload.split(',')
         if len(parts) != 6:
             print(f"⚠️ Malformed device message received: {payload}")
@@ -20,7 +12,6 @@ def process_device_message(payload, db_connector):
         
         timestamp, device_id, patient_id, heart_rate, spo2, status = parts
         
-        # 2. Standardize into a base JSON object
         base_event = {
             "eventType": "MedicalDeviceLog",
             "timestamp": timestamp,
@@ -38,19 +29,18 @@ def process_device_message(payload, db_connector):
             }
         }
         
-        # 3. Enrich the data by querying the database
         device_info = db_connector.fetch_one_as_dict(
             "SELECT device_type, location, department, ip_address FROM devices WHERE device_id = %s", (device_id,)
         )
         if device_info:
             base_event['device'].update(device_info)
             
+        # Now fetches the 'status' column from the database
         patient_info = db_connector.fetch_one_as_dict(
-            "SELECT full_name, current_room, assigned_doctor_id FROM patients WHERE patient_id = %s", (patient_id,)
+            "SELECT full_name, current_room, assigned_doctor_id, status FROM patients WHERE patient_id = %s", (patient_id,)
         )
         if patient_info:
             base_event['patient'].update(patient_info)
-            # Further enrich with doctor's details
             if patient_info.get('assigned_doctor_id'):
                 doctor_info = db_connector.fetch_one_as_dict(
                    "SELECT full_name, role, is_on_shift FROM staff WHERE user_id = %s", (patient_info['assigned_doctor_id'],)
@@ -68,16 +58,8 @@ def process_device_message(payload, db_connector):
 def process_network_message(payload, db_connector):
     """
     Parses, standardizes, and enriches a raw network/auth log message.
-    
-    Args:
-        payload (str): The raw message from MQTT (e.g., "timestamp,log_source,...").
-        db_connector (DatabaseConnector): An instance of the database connector.
-        
-    Returns:
-        dict: A rich JSON object with contextual data, or None if processing fails.
     """
     try:
-        # 1. Parse the raw message
         parts = payload.split(',')
         if len(parts) != 6:
             print(f"⚠️ Malformed network message received: {payload}")
@@ -85,7 +67,6 @@ def process_network_message(payload, db_connector):
             
         timestamp, log_source, user_id, source_ip, action, target_resource = parts
         
-        # 2. Standardize into a base JSON object
         base_event = {
             "eventType": "NetworkAuthLog",
             "timestamp": timestamp,
@@ -103,19 +84,26 @@ def process_network_message(payload, db_connector):
             }
         }
         
-        # 3. Enrich the data by querying the database
         user_info = db_connector.fetch_one_as_dict(
             "SELECT full_name, role, department, access_level, is_on_shift FROM staff WHERE user_id = %s", (user_id,)
         )
         if user_info:
             base_event['user'].update(user_info)
 
-        # Try to find device info based on IP address
         device_info = db_connector.fetch_one_as_dict(
-            "SELECT device_id, device_type, location FROM devices WHERE ip_address = %s", (source_ip,)
+            "SELECT device_id, device_type, location, department FROM devices WHERE ip_address = %s", (source_ip,)
         )
         if device_info:
             base_event['network']['source_device_details'] = device_info
+            
+        # If the target resource is a patient, enrich it with their info
+        if target_resource.startswith('PAT-'):
+            patient_info = db_connector.fetch_one_as_dict(
+                "SELECT full_name, current_room, status FROM patients WHERE patient_id = %s", (target_resource,)
+            )
+            if patient_info:
+                # Add this info to a new key
+                base_event['target_patient_details'] = patient_info
             
         return base_event
 

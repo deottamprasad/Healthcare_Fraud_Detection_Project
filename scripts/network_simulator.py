@@ -71,3 +71,21 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# This script simulates network and authentication activity by reading a CSV file and publishing its rows as messages to an MQTT broker to mimic real-time hospital traffic.
+
+# 1. Configuration Retrieval: Uses configparser to read the config.ini file, fetching the broker's IP address, port, and the specific NETWORK_TOPIC.
+
+# 2. Secure Connection: Initializes a Paho-MQTT client and attempts to connect to the Mosquitto broker. It uses loop_start() to run a background thread, ensuring the 
+# connection stays alive without blocking the rest of the script.
+
+# 3. Data Ingestion: Loads the auth_network_logs.csv file using the Pandas library, converting the tabular data into a format ready for transmission.
+
+# 4. Continuous Simulation: Enters an infinite while True loop that iterates through every row of the CSV. It converts each row into a comma-separated string (payload) 
+# and publishes it to the broker.
+
+# 5. Interval Control: Implements a 3-second delay (time.sleep(3)) between each message to simulate a steady, realistic flow of network events rather than overwhelming 
+# the system.
+
+# 6. Robust Error Handling: Provides clear console feedback for common issues, such as the Mosquitto container being offline, the CSV file being missing, or the user stopping 
+# the script with Ctrl+C.
